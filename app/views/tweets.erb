@@ -1,7 +1,65 @@
-<h1>Fwitter</h1>
-Any similarities to Twitterr are purely coincidental
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fwitter</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
 
-<p><%="#{@tweet1.username} says: #{@tweet1.tweet}" %></p>
-<p>	<%@tweets.each do |tweet|%>
-				<%=tweet%><br>
-			<%end%></p>
+<center>
+<h1>FWITTER</h1>
+<p>Any similarities to Twitterr are purely coincidental</p><br>
+
+<!-- Shows Tweets -->
+<div class="container">
+      <a href="#" class="tw-icon"></a>
+      <div class="notification-box">
+        <form action="/" method="post" accept-charset="utf-8">
+          <!-- Value is guest for now until we can create accounts -->
+          <input type="hidden" name="username" value="guest">
+          <input class="inp-text" type="text" name="fweet" placeholder="Fweet">
+          <button class="tweet-btn" type="submit">Send</button>
+        </form>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Lastest Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Other Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Other Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Other Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Oldest Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+      </div>
+    </div>
+
+</div>
+</center>
+
+</body>
+</html>
