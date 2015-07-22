@@ -1,5 +1,6 @@
 require_relative "../../config/environment"
 require_relative "../models/tweet.rb"
+require_relative "../models/user.rb"
 class ApplicationController < Sinatra::Base
   
 	configure do
@@ -12,18 +13,24 @@ class ApplicationController < Sinatra::Base
 		erb :tweets
   end
 
-  get '/results' do
-  	erb :results
-	end
+ #  get '/results' do
+ #  	erb :results
+	# end
 
-  post '/' do
+  post '/results' do
   	@tweet= Tweet.new(params[:username], params[:fweet])
   	@time= Time.new
   	@tweets = []
 
-  	Tweet.all.each do |tweet_object|
-			@tweets.push("#{tweet_object.username} #{tweet_object.tweet}")
-		end
+    @all_tweets=Tweet.all
+
+  # 	Tweet.all.each do |tweet_object|
+		# 	@tweets.push("#{tweet_object.username.upcase}: #{tweet_object.tweet}")
+		# end
+
+		# def get_tweet()
+		# 	return "@tweets[0]"
+		# end
 
   	erb :results
   end

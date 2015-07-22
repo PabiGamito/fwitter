@@ -1,9 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Fwitter Results</title>
+  <title>Fwitter</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-  <p><%= @tweet.username %>: <%= @tweet.tweet %></p>
+
+<!-- Shows Tweets -->
+<div class="container">
+      <a href="#" class="tw-icon"></a>
+      <div class="notification-box">
+        <form action="/" method="post" accept-charset="utf-8">
+          <!-- Value is guest for now until we can create accounts -->
+          <input type="hidden" name="username" value="guest">
+          <input class="inp-text" type="text" name="fweet" placeholder="Fweet">
+          <button class="tweet-btn" type="submit">Send</button>
+        </form>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+           <%=@tweets[0]%>
+          </div>
+          <i class="time">17m</i>
+        </div>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Other Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Other Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Other Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+        <div class="list">
+          <img src="/img/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            Oldest Tweet
+          </div>
+          <i class="time">17m</i>
+        </div>
+      </div>
+    </div>
+
+</div>
+</center>
+
 </body>
 </html>
