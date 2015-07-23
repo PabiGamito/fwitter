@@ -10,19 +10,42 @@ class ApplicationController < Sinatra::Base
 	end
 	
   get "/" do
-		erb :tweets
+    # TODO: Check if user is connected and if do redirect to :index
+
+		erb :landing
   end
 
- #  get '/results' do
- #  	erb :results
-	# end
+  get "/home" do
+    @tweets = Tweet.all
 
-  post '/results' do
-  	@tweet= Tweet.new(params[:username], params[:fweet])
-  	@time= Time.new
-  	@tweets = []
+    erb :index
+  end
 
-    @all_tweets=Tweet.all
+  get '/results' do
+  	erb :results
+	end
+
+  # TODO: Make it so that when you load /user/username it shows all user tweets
+  get '/user' do
+    erb :user
+  end
+
+  post '/signup' do
+
+  end
+  
+  post '/login' do
+    # if user credentials are correct
+    erb :index
+    # else error message
+    erb :login_error
+  end
+
+  post '/new_tweet' do
+  	@tweet= Tweet.new({:username => params[:username], :tweet => params[:tweet]})
+    @tweet.save
+
+    @tweets = Tweet.all
 
   # 	Tweet.all.each do |tweet_object|
 		# 	@tweets.push("#{tweet_object.username.upcase}: #{tweet_object.tweet}")
@@ -32,7 +55,7 @@ class ApplicationController < Sinatra::Base
 		# 	return "@tweets[0]"
 		# end
 
-  	erb :results
+  	erb :index
   end
 
   
