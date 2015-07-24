@@ -65,52 +65,25 @@
     <!-- Shows Tweets -->
     <div class="col-sm-6" class="main_box">
       <div class="notification-box">
-        <form action="/" method="post" accept-charset="utf-8">
-          <!-- Value is guest for now until we can create accounts -->
+        <form action="/new_tweet" method="post" accept-charset="utf-8">
+          <!-- TODO: Change value="guest" to username of loggedin account  -->
           <input type="hidden" name="username" value="guest">
           <input class="inp-text" type="text" name="tweet" placeholder="What is Happening?">
           <button class="tweet-btn" type="submit">Send</button>
         </form>
 
+<!-- TODO: Make it do .each only for the SPECIFIC users tweets -->
         <% @tweets.each do |tweet| %>
         <div class="list">
           <img src="/img/twitter-egg.jpg" class="avatar">
           <div class="content">
-           <a href="/user/username" class="bold"><%=tweet.username%></a> <div class="light_text" style="display:inline"> @username</div>
+           <a href="/user/<%=tweet.username%>" class="bold"><%=tweet.username%></a> <div class="light_text" style="display:inline"> @username</div>
            <p><%=tweet.tweet%></p>
           </div>
           <i class="time"><%=tweet.created_at%></i>
         </div>
         <%end%>
 
-        <!-- <div class="list">
-          <img src="/img/twitter-egg.jpg" class="avatar">
-          <div class="content">
-            Other Tweet
-          </div>
-          <i class="time">17m</i>
-        </div>
-        <div class="list">
-          <img src="/img/twitter-egg.jpg" class="avatar">
-          <div class="content">
-            Other Tweet
-          </div>
-          <i class="time">17m</i>
-        </div>
-        <div class="list">
-          <img src="/img/twitter-egg.jpg" class="avatar">
-          <div class="content">
-            Other Tweet
-          </div>
-          <i class="time">17m</i>
-        </div>
-        <div class="list">
-          <img src="/img/twitter-egg.jpg" class="avatar">
-          <div class="content">
-            Oldest Tweet
-          </div>
-          <i class="time">17m</i>
-        </div> -->
       </div>
     </div>
 

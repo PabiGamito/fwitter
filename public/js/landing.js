@@ -1,15 +1,12 @@
-function toggleScroll() {
-  $('.start-login, .start-signup').toggleClass('active');
-  //$('html, body, .section-start').animate({
-  //  scrollTop: 0
-  //}, 200);
-}
-
-$('.btn-signup, .btn-back-login').click(function() {
-  toggleScroll();
-});
-
-$('.btn-signup, .btn-back-login').on('touchstart', function(event) {
-  event.stopPropagation();
-  toggleScroll();
+// Toggle Function
+$('.toggle').click(function(){
+  // Switches the Icon
+  $(this).children('i').toggleClass('fa-pencil');
+  // Switches the forms  
+  $('.form').animate({
+    height: "toggle",
+    'padding-top': 'toggle',
+    'padding-bottom': 'toggle',
+    opacity: "toggle"
+  }, "slow");
 });

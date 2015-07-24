@@ -1,5 +1,6 @@
 class Tweet < ActiveRecord::Base
 
+belongs_to :user
 	# attr_accessor :username, :tweet
 	# def initialize(username, tweet)
 	# 	@username = username

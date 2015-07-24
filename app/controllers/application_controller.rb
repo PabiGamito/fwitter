@@ -1,3 +1,5 @@
+# TODO: use omniauth http://www.rubydoc.info/gems/omniauth/1.2.2
+
 require_relative "../../config/environment"
 require_relative "../models/tweet.rb"
 require_relative "../models/user.rb"
@@ -11,9 +13,9 @@ class ApplicationController < Sinatra::Base
 	
   get "/" do
     # TODO: Check if user is connected and if do redirect to :index
-
 		erb :landing
   end
+
 
   get "/home" do
     @tweets = Tweet.all
@@ -25,20 +27,52 @@ class ApplicationController < Sinatra::Base
   	erb :results
 	end
 
+  get '/welcome' do
+    erb :welcome
+  end
+
   # TODO: Make it so that when you load /user/username it shows all user tweets
   get '/user' do
     erb :user
   end
 
-  post '/signup' do
 
+  post '/signup' do
+    # TODO: Make it so that the welcome page says welcome User
+    # TODO: Find a way to encrypt passwords use Bcrypt gem
+    # TODO: Error when passwords do not match.
+    @username=params[:username]
+    @password=params[:pwd1]
+    @confirm_password=params[:pwd2]
+    @error=""
+
+    puts "Test"
+
+    if @password==@confirm_password
+
+      if User.exists?(:username => @username)
+        # TODO: Error message user exists
+        erb :landing
+      else
+        @user = User.new({:username => params[:username], :password => params[:pwd1], :email => params[:email]})
+        @user.save
+        erb :welcome
+      end
+    else
+      erb :landing
+    end
   end
   
   post '/login' do
-    # if user credentials are correct
-    erb :index
+    @username=params[:username]
+    @password=params[:password]
+    if 1==1
+      @tweets = Tweet.all
+      erb :index
+    else
     # else error message
-    erb :login_error
+    erb :landing
+    end
   end
 
   post '/new_tweet' do
