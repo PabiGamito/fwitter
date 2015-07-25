@@ -5,6 +5,10 @@ gem "sinatra"
 gem "activerecord"
 gem "sinatra-activerecord"
 gem "rake"
+gem 'devise'
+gem "rack-ssl-enforcer"
+gem "haml"
+
 
 group :development do
   gem "pry"

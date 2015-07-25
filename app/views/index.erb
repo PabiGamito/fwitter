@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
@@ -26,29 +25,29 @@
       <span class="icon-bar"></span>
     </button>    
       </div>
+      <!-- NAVBAR CENTER -->
       <a class="navbar-brand" href="#top"><i class="fa fa-twitter"></i></a>
       <div class="navbar-collapse collapse" class="dropdown">
+      <!-- NAVBAR LEFT -->
         <ul class="nav navbar-nav navbar-left" id="nav">
           <li class="menu-item-left"><a class="smoothScroll" href="#home" title="Home"><i class="fa fa-home"></i></a></li>
           <li class="menu-item-left"><a class="smoothScroll" href="#user" title="User"><i class="fa fa-user"></i></a></li>
           <li class="menu-item-left"><a class="smoothScroll" href="#notifications" title="Notifications"><i class="fa fa-bell"></i></a></li>
           <li class="menu-item-left"><a class="smoothScroll" href="#messages" title="Messages"><i class="fa fa-inbox"></i></a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
 
-        <!-- TODO: Format etc. The navabar -->
-          <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Dropdown
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </div>
+        <!-- NAVBAR RIGHT -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+          </li>
         </ul>
       </div>
 </nav>   
@@ -73,8 +72,8 @@
         <div class="list">
           <img src="/img/twitter-egg.jpg" class="avatar">
           <div class="content">
-           User
-           <p>@User</p>
+           <%=@username%>
+           <p>@<%=@username%></p>
           </div>
         </div>
       </div>
@@ -86,20 +85,22 @@
       <!-- TODO: Make it so a lager box opens when you click into the text input form to write your post -->
         <form action="/new_tweet" method="post" accept-charset="utf-8">
           <!-- Value is guest for now until we can create accounts -->
-          <input type="hidden" name="username" value="guest">
+          <%@user = User.where("username = ?", @username).first%>
+          <input type="hidden" name="user_id" value="@user.id">
           <input class="inp-text" type="text" name="tweet" placeholder="What is Happening?">
           <button class="tweet-btn" type="submit">Post</button>
         </form>
       </div>
 
-<!-- TODO: Figure out a way to make it .each from latest tweet to newest -->
+<!-- TODO add display name -->
       <div class="notification-box">
         <%@amount_of_tweets=0%>
         <% @tweets.reverse_each do |tweet| %>
         <div class="list">
           <img src="/img/twitter-egg.jpg" class="avatar">
           <div class="content">
-           <a href="/user/<%=tweet.user_id%>" class="bold"><%=tweet.user_id%></a> <div class="light_text" style="display:inline"> @username</div>
+          <%@user = User.find(tweet.user_id)%>
+           <a href="/user/<%=tweet.user_id%>" class="bold"><%=@user.username%></a> <div class="light_text" style="display:inline"> @<%=@user.username%></div>
            <p class="dfont"><%=tweet.tweet%></p>
           </div>
           <i class="time"><%=tweet.created_at%></i>
@@ -122,7 +123,11 @@
   </div>
 <!-- </div> -->
 
+<!-- TODO: Something that sends back all the data every single time you change a page-->
 
+
+
+<script src="js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -18,9 +18,12 @@ class ApplicationController < Sinatra::Base
 
 
   get "/home" do
-    @tweets = Tweet.all
-
-    erb :index
+    if @username==nil
+      erb :landing
+    else
+      @tweets = Tweet.all
+      erb :index
+    end
   end
 
   get '/results' do
@@ -64,19 +67,22 @@ class ApplicationController < Sinatra::Base
   end
   
   post '/login' do
+    # TODO use a gem for authentication
     @username=params[:username]
     @password=params[:password]
-    if 1==1
-      @tweets = Tweet.all
+    if User.exists?(:username => @username)
+      @tweets=Tweet.all
+      @username=@username
       erb :index
     else
-    # else error message
-    erb :landing
+      erb :landing
     end
   end
 
   post '/new_tweet' do
-  	@tweet= Tweet.new({:username => params[:username], :tweet => params[:tweet]})
+    # TODO: Change to user ID and check. Doesn't work yet. LOOK UP how use a specific item from the array. --> Tweet.all[ID]
+  	@tweet= Tweet.new({:user_id => params[:user_id], :tweet => params[:tweet]})
+    @user_id.tweet_count+=1
     @tweet.save
 
     @tweets = Tweet.all
