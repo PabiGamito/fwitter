@@ -3,21 +3,33 @@
 require_relative "../../config/environment"
 require_relative "../models/tweet.rb"
 require_relative "../models/user.rb"
+
 class ApplicationController < Sinatra::Base
   
 	configure do
 		set :views, "app/views"
 		set :public_dir, "public"
 		set :models, "/app/models"
+    enable :sessions
+    # Sets password to read the cookies
+    set :session_secret, "thebestpassword"
 	end
 	
   get "/" do
     # TODO: Check if user is connected and if do redirect to :index
-		erb :landing
+    if session["user"]==nil
+      erb :landing
+    else
+      @tweets=Tweet.all
+		  @user_id=session["user"]
+      erb :index
+    end
   end
 
 
   get "/home" do
+    # session["user"] ||= nil
+    @username=session["user"]
     if @username==nil
       erb :landing
     else
@@ -70,22 +82,37 @@ class ApplicationController < Sinatra::Base
     # TODO use a gem for authentication
     @username=params[:username]
     @password=params[:password]
+    @user=User.find_by({:username => @username})
     if User.exists?(:username => @username)
       @tweets=Tweet.all
-      @username=@username
+      # TODO get user id out of this.
+      session["user"]=@user.id
+      @user_id=session["user"]
       erb :index
     else
       erb :landing
     end
   end
 
-  post '/new_tweet' do
+  get '/logout' do
+    session["user"] = nil
+    redirect '/'
+  end
+
+  post '/new-tweet' do
     # TODO: Change to user ID and check. Doesn't work yet. LOOK UP how use a specific item from the array. --> Tweet.all[ID]
-  	@tweet= Tweet.new({:user_id => params[:user_id], :tweet => params[:tweet]})
-    @user_id.tweet_count+=1
+    puts "Trying to Create New Tweet"
+    if session["user"]!=nil
+    @tweet= Tweet.new({:user_id => params[:user_id], :tweet => params[:tweet]})
+    # @user.add_tweet_count
     @tweet.save
 
     @tweets = Tweet.all
+
+  else 
+    redirect '/'
+
+  end
 
   # 	Tweet.all.each do |tweet_object|
 		# 	@tweets.push("#{tweet_object.username.upcase}: #{tweet_object.tweet}")

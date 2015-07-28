@@ -45,7 +45,7 @@
                     <li><a href="#">Another action</a></li>
                     <li><a href="#">Something else here</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
           </li>
         </ul>
@@ -58,12 +58,6 @@
 
 
 
-<!-- Website Main Container -->
-
-<!-- <div class="container"> -->
-<!--   <center><h1>Fwitter</h1></center> -->
-
-<!-- TODO: Push this down the amount of space the Navbar takes-->
   <div class="row">
   <!-- Left Side Bar -->
   <!-- TODO: Make it do @Profile is interactive...-->
@@ -72,27 +66,28 @@
         <div class="list">
           <img src="/img/twitter-egg.jpg" class="avatar">
           <div class="content">
-           <%=@username%>
-           <p>@<%=@username%></p>
+          <%@user=User.find(session["user"])%>
+           <%=@user.username%>
+           <p>@<%=@user.username%></p>
           </div>
         </div>
       </div>
     </div>
-    
-    <!-- Shows Tweets -->
+ 
+<!-- Main Box  -->
+  <!-- Create New Tweet -->
     <div class="col-sm-6" class="main_box">
       <div class="notification-box">
       <!-- TODO: Make it so a lager box opens when you click into the text input form to write your post -->
-        <form action="/new_tweet" method="post" accept-charset="utf-8">
-          <!-- Value is guest for now until we can create accounts -->
-          <%@user = User.where("username = ?", @username).first%>
-          <input type="hidden" name="user_id" value="@user.id">
+        <form action="/new-tweet" method="post" accept-charset="utf-8">
+          <!-- TODO:!!!!!! @user_id-->
+          <input type="hidden" name="user_id" value="<%=session["user"]%>">
           <input class="inp-text" type="text" name="tweet" placeholder="What is Happening?">
           <button class="tweet-btn" type="submit">Post</button>
         </form>
       </div>
 
-<!-- TODO add display name -->
+  <!-- Displays Tweets -->
       <div class="notification-box">
         <%@amount_of_tweets=0%>
         <% @tweets.reverse_each do |tweet| %>

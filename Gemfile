@@ -8,6 +8,7 @@ gem "rake"
 gem 'devise'
 gem "rack-ssl-enforcer"
 gem "haml"
+gem 'gravtastic'
 
 
 group :development do

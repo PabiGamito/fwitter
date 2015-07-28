@@ -1,4 +1,4 @@
-require 'sinatra/activerecord/rake'
+# require 'sinatra/activerecord/rake'
 require './config/environment'
 require './app/models/user'
 require './app/models/tweet'
